@@ -1,6 +1,6 @@
 //configuração e conexão
 const express = require('express')
-const router = express.router();
+const router = express.Router();
 const { createClient } = require('@supabase/supabase-js')
 
 const supabase = createClient (
@@ -11,11 +11,11 @@ const supabase = createClient (
 router.get('/', async (req, res) => {
 	try {
 		const { search } = req.query; 
-		let query = supabase.from('aulas').select('*');
+		let query = supabase.from('classes').select('*');
 
 		
 		if (search) {
-			query = query.ilike('titulo', `%${search}%`);
+			query = query.ilike('title', `%${search}%`);
 		}
 
 		const { data, error } = await query;
@@ -23,6 +23,8 @@ router.get('/', async (req, res) => {
 
 		res.json(data);
 	} catch (err) {
-		res.status(500).json({ erro: "Erro ao buscar aulas" });
+		res.status(500).json({ erro: "Erro ao encontrar as aulas" });
 	}
 });
+
+module.exports = router;

@@ -10,13 +10,13 @@ const supabase = createClient(
 // GET /provas — busca todas as provas com filtros opcionais
 router.get('/', async (req, res) => {
 	try {
-		const { professor, semestre, tipo, date } = req.query;
+		const { teacher, semester, type, date } = req.query;
 
-		let query = supabase.from('provas').select('*');
+		let query = supabase.from('tests').select('*');
 
-		if (professor) query = query.eq('professor', professor);
-		if (semestre) query = query.eq('semestre', semestre);
-		if (tipo) query = query.eq('tipo', tipo);
+		if (teacher) query = query.eq('teacher', teacher);
+		if (semester) query = query.eq('semester', semester);
+		if (type) query = query.eq('type', type);
 		if (date) query = query.eq('data', date);
 		
 
